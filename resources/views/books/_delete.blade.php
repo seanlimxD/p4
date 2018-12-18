@@ -10,7 +10,7 @@
                 <p>Are you sure you want to delete chapter {{$chapter->name}}?</p>
             </div>
             <div class="modal-footer">
-                <form method="POST" data-url='/books/{{$book->id}}/chapters/{{$chapter->id}}' class='submitdeleteform'>                    
+                <form method="POST" action='/books/{{$book->id}}/chapters/{{$chapter->id}}' class='submitdeleteform'>                    
                     <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                     <input name="_method" type="hidden" value="DELETE">
                     <button type="submit" class="btn btn-default">Yes</button>

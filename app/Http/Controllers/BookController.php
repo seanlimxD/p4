@@ -124,6 +124,6 @@ class BookController extends Controller
             $book->delete();
             return redirect("/");
         }
-        return "You do not have sufficient permissions to delete this chapter.";
+        return "You do not have sufficient permissions to delete this book.";
     }
 }	

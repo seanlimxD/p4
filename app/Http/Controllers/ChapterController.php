@@ -87,14 +87,13 @@ class ChapterController extends Controller
     }
 
     public function destroy(Request $request, $book_id, $chapter_id){
-        dump(
-        $book = Book::find($book_id));
+        $book = Book::find($book_id);
         $chapter = Chapter::find($chapter_id);
         $author = $book->user;
 
         if ($author['id'] == Auth::user()->id || $chapters->book == $book){
             $chapter->delete();
-            $chapters=Chapter::whereBookId($books->id)->orderBy('order')->get();
+            $chapters=Chapter::whereBookId($book->id)->orderBy('order')->get();
             return redirect('/books/'.$book_id);
         }
         return response()->json(["You do not have sufficient permissions to delete this chapter."]);
