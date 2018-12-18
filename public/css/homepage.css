@@ -1,0 +1,18 @@
+#learn{
+	background-color: #000000;
+	border-color: #FFFFFF;
+}
+
+#heading, #header{
+	color: #FFFFFF;
+}
+
+.jumbotron{
+	background-image: url("../images/wallpaper.jpg");
+}
+
+.btn-default{
+	background-color: #222222;
+	border-color: #FFFFFF;
+	color: #FFFFFF;
+}
