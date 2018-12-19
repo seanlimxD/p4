@@ -31,7 +31,7 @@ Add New Chapter
                                     <label for='content'>Content</label>
                                     <textarea class="form-control" rows="5" name='content'> {{old('content')}}</textarea>
                         </div>
-                        <input type='submit' value='Submit'>
+                        <input type='submit' value='Add new chapter'>
                 </form>
             </div>        
         </div>

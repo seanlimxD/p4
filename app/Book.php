@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class Book extends Model
 {
@@ -11,15 +10,17 @@ class Book extends Model
         'title', 'cover_url', 'synopsis', 'created_at', 'updated_at', 'user_id',
     ];
     
-    public function user() {
+    public function author() {
         # Book belongs to Author
         # Define an inverse one-to-many relationship.
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', "id");
     }
 
-    public function chapters()
-    {
-        # With timetsamps() will ensure the pivot table has its created_at/updated_at fields automatically maintained
-        return $this->belongsToMany('App\Chapter');
+    public function chapters() {
+        return $this->hasMany('App\Chapter');
+    }
+
+    public function followers() {
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 }

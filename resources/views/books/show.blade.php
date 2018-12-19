@@ -8,14 +8,19 @@
 <div class="jumbotron">
     <div class="container">
         <h1 id = "heading">{{$book->title}}</h1>
-        @if (Auth::user() && Auth::user()->id == $book->user->id)
         <p>
+        @if (Auth::user() && Auth::user()->id == $book->author->id)
             <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/edit" role="button">Edit this book</a>
             <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/delete" role="button">Delete this book</a>
             <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/chapters/create" role="button">Add a chapter</a>
-        </p>
+        @elseif (Auth::user() && Auth::user()->id != $book->author->id)
+            @if (in_array(Auth::user()->id, $followers))
+                <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/unfollow" role="button">Unfollow this book</a>
+            @else
+                <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/follow" role="button">Follow this book</a>
+            @endif
         @endif
-
+    </p>
     </div>
 </div>
 
@@ -43,7 +48,7 @@
                     <li class="list-group-item">
                         Chapter {{$chapter->order}}
                         <a href = '/books/{{$book->id}}/chapters/{{$chapter->id}}'>{{$chapter->name}}</a>
-                        @if (Auth::user() && Auth::user()->id == $book->user->id)
+                        @if (Auth::user() && Auth::user()->id == $book->author->id)
                             <a href="/books/{{$book->id}}/chapters/{{$chapter->id}}/delete"><span class='pull-right'>Delete</span></a>
                             <a href='/books/{{$book->id}}/chapters/{{$chapter->id}}/edit'><span class='pull-right'>Edit &nbsp;</span></a>
                         @endif

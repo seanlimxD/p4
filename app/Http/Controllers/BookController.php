@@ -32,7 +32,7 @@ class BookController extends Controller
             $books = Book::where('user_id', '!=', $userid)->get();	
     	}
         else {
-            $books = Book::with('user')->orderBy('updated_at', 'desc')->get();   
+            $books = Book::with('author')->orderBy('updated_at', 'desc')->get();   
         }
         return view('books.index')->with([
             'books' => $books,
@@ -89,16 +89,18 @@ class BookController extends Controller
     /**
      * Responds to requests to GET /books/{id}
      */
-	public function show(Request $request, $id){
+	public function show(Request $request, $id) {
         $book = Book::find($id);
     	$chapters = Chapter::where('book_id', '=', $id)->orderBy('order')->get();
+        $followers = $book->followers()->select('user_id')->pluck('user_id')->toArray();
     	return view('books.show')->with([
             'book' => $book,
-            'chapters' => $chapters
+            'chapters' => $chapters,
+            'followers' => $followers
         ]);
     }
 
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id) {
         $book = Book::find($id);
         $author = $book->user;
         if (Auth::check()){
@@ -147,7 +149,7 @@ class BookController extends Controller
         return "You do not have sufficient permissions to delete this book.";
     }
 
-    public function destroy(Request $request, $id){
+    public function destroy(Request $request, $id) {
         $book = Book::find($id);
         $author = $book->user;  
         if ($author['id'] == Auth::user()->id){
@@ -157,8 +159,7 @@ class BookController extends Controller
         return "You do not have sufficient permissions to delete this book.";
     }
 
-    public function search(Request $request)
-    {
+    public function search(Request $request) {
         $searchTerm = $request->input('searchTerm', null);
         $mybooks = null;
         $user = Auth::user();
@@ -187,5 +188,19 @@ class BookController extends Controller
             'books' => $books,
             'mybooks' => $mybooks
         ]);
+    }
+
+    public function follow(Request $request, $id) {
+        $user = Auth::user();
+        $book = Book::find($id);
+        $user->follows()->sync($book);
+        return redirect("/books/".$id);
+    }
+
+    public function unfollow(Request $request, $id) {
+        $user = Auth::user();
+        $book = Book::find($id);
+        $user->follows()->detach($book);
+        return redirect("/books/".$id);
     }
 }	

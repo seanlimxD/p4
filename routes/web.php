@@ -23,9 +23,11 @@ Route::get('/index', 'BookController@index');
 
 Route::resource('books.chapters', 'ChapterController');
 Route::resource('books', 'BookController');
-Route::get('books/{books}/delete', 'BookController@delete');
-Route::get('books/{books}/chapters/{chapters}/delete', 'ChapterController@delete');
+Route::get('/books/{books}/delete', 'BookController@delete');
+Route::get('/books/{books}/chapters/{chapters}/delete', 'ChapterController@delete');
 Route::get('/books-search', 'BookController@search');
+Route::get('/books/{books}/follow', 'BookController@follow');
+Route::get('/books/{books}/unfollow', 'BookController@unfollow');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

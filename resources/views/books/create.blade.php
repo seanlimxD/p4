@@ -31,7 +31,7 @@
                                     <label for='synopsis'>Synopsis*</label>
                                     <textarea class="form-control" rows="5" name='synopsis'>{{ old('synopsis') }}</textarea>
                         </div>
-                        <input type='submit' value='Submit'>
+                        <input type='submit' value='Add new book'>
                 </form>
             </div>        
         </div>

@@ -1,6 +1,6 @@
 # Project 4
-+ By: *your first and last name*
-+ Production URL: <http://p4.yourdomain.com>
++ By: *Sean Lim*
++ Production URL: <http://p4.seanlimsph.com>
 
 ## Database
 *The following is example info taken from Foobooks; delete and replace with your own info.*
@@ -19,10 +19,15 @@ Pivot table(s):
 *Describe what action I need take in order to see an example of all 4 CRUD operations in your app. I've filled this out with examples from the Foobooks app - delete this and replace with your own info. If one operation is performed multiple times (e.g. Read), you only need to provide 1 example.*
 
 __Create__
-  + Visit <http://p4.foobooks.me/books/create>
+  + Login
+  + Visit <http://p4.seanlimsph.me/books/create>
   + Fill out form
   + Click *Add new book*
-  + Observe confirmation message
+
+  + Visit <http://p4.seanlimsph.me/books/{book}>
+  + Click *Add a chapter*
+  + Fill out form
+  + Click *Add new chapter*
   
 __Read__
   + Visit <http://p4.foobooks.me/books> see a listing of all books
