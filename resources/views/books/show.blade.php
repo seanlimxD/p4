@@ -43,12 +43,9 @@
                     <li class="list-group-item">
                         Chapter {{$chapter->order}}
                         <a href = '/books/{{$book->id}}/chapters/{{$chapter->id}}'>{{$chapter->name}}</a>
-                        @if (Auth::user() && Auth::user()->id == $book->user->id)                  
-                            <!-- Modal Trigger -->
-                            <a href="" data-toggle="modal" data-target="#myModal{{$chapter->id}}"><span class='pull-right'>Delete</span></a>
+                        @if (Auth::user() && Auth::user()->id == $book->user->id)
+                            <a href="/books/{{$book->id}}/chapters/{{$chapter->id}}/delete"><span class='pull-right'>Delete</span></a>
                             <a href='/books/{{$book->id}}/chapters/{{$chapter->id}}/edit'><span class='pull-right'>Edit &nbsp;</span></a>
-                            <!-- Modal -->
-                            @include('books._delete')
                         @endif
                     </li>
                 @endforeach
@@ -57,5 +54,6 @@
         </div>
     </div>
 </div>
+
 <hr>
 @stop

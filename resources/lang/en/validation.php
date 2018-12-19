@@ -130,6 +130,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'order' => [
+            'required' => 'Please specify where this chapter should go with a chapter number.',
+            'numeric' => 'The chapter number field can only be filled with numbers.'
+        ],
     ],
 
     /*

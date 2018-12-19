@@ -26,6 +26,11 @@ class ChapterController extends Controller
     }
 
     public function store(Request $request, $id) {
+        $request->validate([
+            'name' => 'required',
+            'content' => 'required',
+            'order' => 'required|numeric'
+        ]);
         $book = Book::find($id);
         Chapter::create(
                 ['name' => $request->input('name'), 
@@ -47,6 +52,10 @@ class ChapterController extends Controller
 
     public function show(Request $request, $book_id, $chapter_id){
         $book = Book::find($book_id);
+
+        if (!$book) {
+            return redirect('/books')->with('alert', 'Book not found');
+        }
         $chapter = Chapter::find($chapter_id);
     	if ($book_id == $chapter->book_id)
             return view('books.chapter')->with([
@@ -70,6 +79,12 @@ class ChapterController extends Controller
     }
 
     public function update(Request $request, $book_id, $chapter_id){
+        $request->validate([
+            'name' => 'required',
+            'content' => 'required',
+            'order' => 'required|numeric'
+        ]);
+
         $book = Book::find($book_id);
         $chapter = Chapter::find($chapter_id);
 
@@ -86,6 +101,28 @@ class ChapterController extends Controller
             ]);
     }
 
+    public function delete(Request $request, $book_id, $chapter_id) {
+        $book = Book::find($book_id);
+        $chapter = Chapter::find($chapter_id);
+
+        if (!$book) {
+            return redirect('/books')->with('alert', 'Book not found');
+        }
+
+        if (!$chapter) {
+            return redirect('/books/'.$book_id)->with('alert', 'Chapter not found');
+        }
+
+        $author = $book->user;
+        if ($author['id'] == Auth::user()->id){
+            return view('books.delete_chapter')->with([
+                'book' => $book,
+                'chapter' => $chapter
+            ]);
+        }
+        return "You do not have sufficient permissions to delete this chapter.";
+    }
+
     public function destroy(Request $request, $book_id, $chapter_id){
         $book = Book::find($book_id);
         $chapter = Chapter::find($chapter_id);
@@ -94,8 +131,11 @@ class ChapterController extends Controller
         if ($author['id'] == Auth::user()->id || $chapters->book == $book){
             $chapter->delete();
             $chapters=Chapter::whereBookId($book->id)->orderBy('order')->get();
+
+            $book->chapters = count($chapters);
+            $book->save();
             return redirect('/books/'.$book_id);
         }
-        return response()->json(["You do not have sufficient permissions to delete this chapter."]);
+        return redirect('/books/'.$book_id)->with('alert', 'You do not have sufficient permissions to delete this chapter.');
     }
 }

@@ -28,9 +28,12 @@ class BookController extends Controller
 		$mybooks = null;
     	if($user) {
 	    	$userid = $user->id;
-	    	$mybooks = Book::where('user_id', '=', $userid)->get();	
+	    	$mybooks = Book::where('user_id', '=', $userid)->get();
+            $books = Book::where('user_id', '!=', $userid)->get();	
     	}
-    	$books = Book::with('user')->orderBy('updated_at', 'desc')->get();
+        else {
+            $books = Book::with('user')->orderBy('updated_at', 'desc')->get();   
+        }
         return view('books.index')->with([
             'books' => $books,
             'mybooks' => $mybooks
@@ -56,6 +59,22 @@ class BookController extends Controller
 	 * Responds to requests to POST /books/create
 	 */
 	public function store(Request $request) {
+        $request->validate([
+            'title' => 'required',
+            'cover_url' => 'nullable|url',
+            'synopsis' => 'required'
+        ]);
+
+        if (!$request->input('cover_url')) {
+            Book::create(
+                ['title' => $request->input('title'), 
+                'synopsis' => $request->input('synopsis'),
+                'created_at' => new \DateTime(),
+                'updated_at' => new \DateTime(),
+                'user_id' => Auth::user()->id,
+                ]);
+            return redirect('/');
+        }
 	    Book::create(
 	    		['title' => $request->input('title'), 
 	    		'cover_url' => $request->input('cover_url'),
@@ -63,8 +82,7 @@ class BookController extends Controller
 	    		'created_at' => new \DateTime(),
 	    		'updated_at' => new \DateTime(),
 	    		'user_id' => Auth::user()->id,
-	    		]
-	    );
+	    		]);
 	    return redirect('/');
 	}
 
@@ -92,10 +110,18 @@ class BookController extends Controller
     }
 
     public function update(Request $request, $id){
+        $request->validate([
+            'title' => 'required',
+            'cover_url' => 'nullable|url',
+            'synopsis' => 'required'
+        ]);
+
         $book = Book::find($id);
 
         $book->title = $request->input('title');
-        $book->cover_url = $request->input('cover_url');
+        if ($request->input('cover_url')){
+            $book->cover_url = $request->input('cover_url');   
+        }
         $book->synopsis = $request->input('synopsis');
         $book->updated_at = new \DateTime();
         $book->save();
@@ -107,14 +133,18 @@ class BookController extends Controller
     * GET
     * Page to confirm deletion
     */
-    public function confirmDeletion(Request $request, $id) {
+    public function delete(Request $request, $id) {
         $book = Book::find($id);
 
-        $author = $book->user;  
+        if (!$book) {
+            return redirect('/books')->with('alert', 'Book not found');
+        }
+
+        $author = $book->user;
         if ($author['id'] == Auth::user()->id){
             return view('books.delete')->with('book', $book);
         }
-        return "You do not have sufficient permissions to delete this chapter.";
+        return "You do not have sufficient permissions to delete this book.";
     }
 
     public function destroy(Request $request, $id){

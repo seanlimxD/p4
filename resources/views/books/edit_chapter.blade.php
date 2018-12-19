@@ -23,15 +23,15 @@ Editing  chapter: {{ $chapter->title }}
                                 <input name="_method" type="hidden" value="PUT">
                                 <div class = 'form-group'>
                                         <label for='name'>Chapter name</label>
-                                        <input type='text' name='name' class = 'form-control' value = '{{$chapter->name}}'>
+                                        <input type='text' name='name' class = 'form-control' value = '{{old('name')}}'>
                                 </div>
                                 <div class='form-group'>
                                             <label for='order'>Chapter number</label>
-                                            <input name='order' class = 'form-control' type='text' value = '{{$chapter->order}}'>
+                                            <input name='order' class = 'form-control' type='text' value = '{{old('order')}}'>
                                 </div>
                                 <div class='form-group'>
                                             <label for='content'>Content</label>
-                                            <textarea class="form-control" rows="5" name='content'>{{$chapter->content}}</textarea>
+                                            <textarea class="form-control" rows="5" name='content'>{{old('content')}}</textarea>
                                 </div>
                                 <input type='submit' value='Save Changes'>
                         </form>
@@ -40,4 +40,5 @@ Editing  chapter: {{ $chapter->title }}
         </div>
 </div>
 
+<hr>
 @endsection
