@@ -39,7 +39,7 @@
                     {{$book->synopsis}}
                 </div>
             </div>
-            <div class="panel panel-default chapter-panel" ng-init="chapters = {{$chapters}}">
+            <div class="panel panel-default chapter-panel">
                 <!-- Default panel contents -->
                 <div class="panel-heading">Chapters</div>
                 <!-- List group -->

@@ -210,8 +210,11 @@ class BookController extends Controller
     }
 
     public function following() {
-        return view('books.following')->with([
-            'books' => Auth::user()->follows,
-        ]);
+        if (Auth::user()){   
+            return view('books.following')->with([
+                'books' => Auth::user()->follows,
+            ]);
+        }
+        return redirect('login');
     }
 }	
