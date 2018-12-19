@@ -14,11 +14,11 @@
             <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/delete" role="button">Delete this book</a>
             <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/chapters/create" role="button">Add a chapter</a>
             @elseif (Auth::user() && Auth::user()->id != $book->author->id)
-            @if (in_array(Auth::user()->id, $followers))
-            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/unfollow" role="button">Unfollow this book</a>
-            @else
-            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/follow" role="button">Follow this book</a>
-            @endif
+                @if (in_array(Auth::user()->id, $followers))
+                <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/unfollow" role="button">Unfollow this book</a>
+                @else
+                <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/follow" role="button">Follow this book</a>
+                @endif
             @endif
         </p>
     </div>

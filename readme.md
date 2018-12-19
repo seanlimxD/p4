@@ -3,7 +3,6 @@
 + Production URL: <http://p4.seanlimsph.com>
 
 ## Database
-*The following is example info taken from Foobooks; delete and replace with your own info.*
 
 Primary tables:
   + `books`
@@ -15,7 +14,6 @@ Pivot table(s):
 
 
 ## CRUD
-*Describe what action I need take in order to see an example of all 4 CRUD operations in your app. I've filled this out with examples from the Foobooks app - delete this and replace with your own info. If one operation is performed multiple times (e.g. Read), you only need to provide 1 example.*
 
 __Create__
   + Login
@@ -44,6 +42,3 @@ __Delete__
 
 ## Code style divergences
 N/A
-
-## Notes for instructor
-*Any notes for me to refer to while grading; if none, omit this section*

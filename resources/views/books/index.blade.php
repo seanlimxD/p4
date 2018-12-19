@@ -8,9 +8,13 @@
 <!-- Main jumbotron for info on site -->
 <div class="jumbotron">
     <div class="container">
+        <h1 id = "heading">
         @if(Auth::user())
-        <h1 id = "heading"> {{Auth::user()->name}}'s Stuff</h1>
+        {{Auth::user()->name}}'s Stuff
+        @else
+        Catalogue
         @endif
+        </h1>
         <p><a class="btn btn-primary btn-lg" href="/about" role="button">About this site &raquo;</a></p>
     </div>
 </div>

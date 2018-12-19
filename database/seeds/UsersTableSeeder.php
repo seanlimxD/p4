@@ -13,8 +13,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
     	$users = [
-    		['test', 'test@test.com', 'test'],
-    		['testa', 'testa@test.com', 'testa'],
+    		['Jill Harvard', 'jill@harvard.edu', 'helloworld'],
+    		['Jamal Harvard', 'jamal@harvard.edu', 'helloworld'],
     	];
 
     	$count = count($users);

@@ -91,6 +91,9 @@ class BookController extends Controller
      */
 	public function show(Request $request, $id) {
         $book = Book::find($id);
+        if (!$book) {
+            return redirect('/');
+        }
     	$chapters = Chapter::where('book_id', '=', $id)->orderBy('order')->get();
         $followers = $book->followers()->select('user_id')->pluck('user_id')->toArray();
     	return view('books.show')->with([
@@ -102,6 +105,9 @@ class BookController extends Controller
 
     public function edit(Request $request, $id) {
         $book = Book::find($id);
+        if (!$book) {
+            return redirect('/');
+        }
         $author = $book->author;
         if (Auth::check()){
         	if ($author['id'] == Auth::user()->id) 
@@ -194,6 +200,9 @@ class BookController extends Controller
     public function follow(Request $request, $id) {
         $user = Auth::user();
         $book = Book::find($id);
+        if (!$book) {
+            return redirect('/');
+        }
         if (!(in_array($user->id, $book->followers()->select('user_id')->pluck('user_id')->toArray()))) {
             $user->follows()->attach($book);
         }
@@ -203,6 +212,9 @@ class BookController extends Controller
     public function unfollow(Request $request, $id) {
         $user = Auth::user();
         $book = Book::find($id);
+        if (!$book) {
+            return redirect('/');
+        }
         if (in_array($user->id, $book->followers()->select('user_id')->pluck('user_id')->toArray())) {
             $user->follows()->detach($book);
         }
