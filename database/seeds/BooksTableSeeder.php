@@ -13,8 +13,8 @@ class BooksTableSeeder extends Seeder
     public function run()
     {
         $books = [
-        	['test', 'The Test', 3, 'http://img2.imagesbn.com/p/9780743273565_p0_v4_s114x166.JPG', 'test synopsis 1'],
-        	['testa', 'The Tester', 1, 'http://img1.imagesbn.com/p/9780061148514_p0_v2_s114x166.JPG', 'this is a test for synopsis 2'],
+        	['test', 'The Test', 3, 'https://previews.123rf.com/images/petdcat/petdcat1009/petdcat100900028/7748642-two-scientists-surprised-at-their-experiment.jpg', 'test synopsis 1'],
+        	['testa', 'The Tester', 1, 'https://comps.canstockphoto.com/science-experiment-stock-photo_csp3755022.jpg', 'this is a test for synopsis 2'],
         ];
 
         $count = count($books);
