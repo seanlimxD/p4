@@ -52,11 +52,14 @@ class ChapterController extends Controller
 
     public function show(Request $request, $book_id, $chapter_id){
         $book = Book::find($book_id);
+        $chapter = Chapter::find($chapter_id);
 
         if (!$book) {
             return redirect('/books');
         }
-        $chapter = Chapter::find($chapter_id);
+        if (!$chapter) {
+            return redirect('/books/'.$book_id);
+        }
     	if ($book_id == $chapter->book_id)
             return view('books.chapter')->with([
                 'book' => $book,
@@ -70,7 +73,16 @@ class ChapterController extends Controller
         $chapter = Chapter::find($chapter_id);
         $author = $book->author;
 
-        if ($author['id'] == Auth::user()->id || $chapter->book == $book) 
+        if (!$book) {
+            return redirect('/books');
+        }
+        if (!$chapter) {
+            return redirect('/books/'.$book_id);
+        }
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+        if ($author->id == Auth::user()->id || $chapter->book == $book) 
             return view('books.edit_chapter')->with([
                 'book' => $book,
                 'chapter' => $chapter
@@ -103,18 +115,19 @@ class ChapterController extends Controller
 
     public function delete(Request $request, $book_id, $chapter_id) {
         $book = Book::find($book_id);
-        $chapter = Chapter::find($chapter_id);
+        $chapter = Chapter::find($chapter_id);        
+        $author = $book->author;
 
         if (!$book) {
-            return redirect('/books')->with('alert', 'Book not found');
+            return redirect('/books');
         }
-
         if (!$chapter) {
-            return redirect('/books/'.$book_id)->with('alert', 'Chapter not found');
+            return redirect('/books/'.$book_id);
         }
-
-        $author = $book->author;
-        if ($author['id'] == Auth::user()->id){
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+        if ($author->id == Auth::user()->id){
             return view('books.delete_chapter')->with([
                 'book' => $book,
                 'chapter' => $chapter
