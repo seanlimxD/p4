@@ -10,9 +10,9 @@
         <h1 id = "heading">{{$book->title}}</h1>
         @if (Auth::user() && Auth::user()->id == $book->user->id)
         <p>
-            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/edit" role="button" id = "learn">Edit this book</a>
-            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/delete" role="button" id = "learn">Delete this book</a>
-            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/chapters/create" role="button" id = "learn">Add a chapter</a>
+            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/edit" role="button">Edit this book</a>
+            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/delete" role="button">Delete this book</a>
+            <a class="btn btn-primary btn-lg" href="/books/{{$book->id}}/chapters/create" role="button">Add a chapter</a>
         </p>
         @endif
 

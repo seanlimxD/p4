@@ -1,8 +1,3 @@
-#learn{
-	background-color: #000000;
-	border-color: #FFFFFF;
-}
-
 #heading, #header{
 	color: #FFFFFF;
 }
@@ -11,8 +6,16 @@
 	background-image: url("../images/wallpaper.jpg");
 }
 
-.btn-default{
+.btn-default, .btn-primary, .btn-primary:active:focus, .btn-default:active:focus{
 	background-color: #222222;
 	border-color: #FFFFFF;
 	color: #FFFFFF;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-default:hover, .btn-default:focus, 
+.btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default .open>.dropdown-toggle.btn-primary {
+    color: #FFFFFF;
+    background-color: #555555;
+    border-color: #FFFFFF;
+    box-shadow: none;
 }

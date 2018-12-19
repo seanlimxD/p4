@@ -156,4 +156,36 @@ class BookController extends Controller
         }
         return "You do not have sufficient permissions to delete this book.";
     }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm', null);
+        $mybooks = null;
+        $user = Auth::user();
+        if ($searchTerm) {
+            if ($user) {
+                $userid = $user->id;
+                $mybooks = Book::where([
+                    ['title', 'like', '%'.$searchTerm.'%'],
+                    ['user_id', '=', $userid]
+                ])->get();
+                $books = Book::where([
+                    ['title', 'like', '%'.$searchTerm.'%'],
+                    ['user_id', '!=', $userid]
+                ])->get();
+            }
+            else {
+                $books = Book::where('title', 'like', '%'.$searchTerm.'%')->get();
+            }
+        }
+
+        else {
+            return redirect("/");
+        }
+
+        return view('books.index')->with([
+            'books' => $books,
+            'mybooks' => $mybooks
+        ]);
+    }
 }	

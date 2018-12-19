@@ -25,5 +25,6 @@ Route::resource('books.chapters', 'ChapterController');
 Route::resource('books', 'BookController');
 Route::get('books/{books}/delete', 'BookController@delete');
 Route::get('books/{books}/chapters/{chapters}/delete', 'ChapterController@delete');
+Route::get('/books-search', 'BookController@search');
 
 Auth::routes();

@@ -8,7 +8,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1 id = "heading">About me</h1>
-            <p><a class="btn btn-primary btn-lg" href="/" role="button" id = "learn">Back to index &raquo;</a></p>
+            <p><a class="btn btn-primary btn-lg" href="/" role="button">Back to index &raquo;</a></p>
         </div>
     </div>
 

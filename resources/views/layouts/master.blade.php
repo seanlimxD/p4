@@ -44,20 +44,17 @@
                             <li><a href="/about">About <span class="sr-only">(current)</span></a></li>
                         @if(Auth::check())
                             <li><a href="/books/create">Create New Book<span class="sr-only">(current)</span></a></li>
-                            <li>
-                                
-                                        <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
-                            </li>
+                            <li><a href='#' onClick='document.getElementById("logout").submit();'>Logout</a></li>
                         @else
                             <li><a href="/login">Login<span class="sr-only">(current)</span></a></li>
                             <li><a href="/register">Register<span class="sr-only">(current)</span></a></li>
                         @endif
                         </ul>
                     </form>
-                    <form id = "searchForm" class="navbar-form navbar-right">
+                    <form method="GET" id="searchForm" class="navbar-form navbar-right" action="/books-search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search Book/Chapter" ng-model="searchInput.title">
-                            <input type="hidden" ng-model="searchInput.name" ng-bind="searchChapter.name = searchInput.title"/>
+                            <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Filter Books by Title">
+                            <input type="submit" value="Search" class="btn btn-primary">
                         </div>
                     </form>
                 </div><!-- /.navbar-collapse -->
@@ -67,10 +64,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-            <footer>
-                <p>&copy; Sean Lim</p>
-            </footer>
         </div> <!-- /container -->
     </body>
 </html>

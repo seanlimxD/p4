@@ -9,7 +9,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1 id = "heading">@if(Auth::user()) {{Auth::user()->name}}'s Stuff @endif</h1>
-        <p><a class="btn btn-primary btn-lg" href="/about" role="button" id = "learn">About this site &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/about" role="button">About this site &raquo;</a></p>
     </div>
 </div>
 
