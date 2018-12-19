@@ -203,4 +203,10 @@ class BookController extends Controller
         $user->follows()->detach($book);
         return redirect("/books/".$id);
     }
+
+    public function following() {
+        return view('books.following')->with([
+            'books' => Auth::user()->follows,
+        ]);
+    }
 }	

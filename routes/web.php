@@ -28,6 +28,7 @@ Route::get('/books/{books}/chapters/{chapters}/delete', 'ChapterController@delet
 Route::get('/books-search', 'BookController@search');
 Route::get('/books/{books}/follow', 'BookController@follow');
 Route::get('/books/{books}/unfollow', 'BookController@unfollow');
+Route::get('/following', 'BookController@following');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
