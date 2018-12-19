@@ -7,12 +7,11 @@
 
 Primary tables:
   + `books`
-  + `authors`
-  + `tags`
+  + `chapters`
   + `users`
   
 Pivot table(s):
-  + `book_tag`
+  + `book_users`
 
 
 ## CRUD
@@ -23,31 +22,28 @@ __Create__
   + Visit <http://p4.seanlimsph.me/books/create>
   + Fill out form
   + Click *Add new book*
-
-  + Visit <http://p4.seanlimsph.me/books/{book}>
-  + Click *Add a chapter*
-  + Fill out form
-  + Click *Add new chapter*
   
 __Read__
-  + Visit <http://p4.foobooks.me/books> see a listing of all books
+  + Visit <http://p4.seanlimsph.me/books> see a listing of all books
   
 __Update__
-  + Visit <http://p4.foobooks.me/books>; choose the Edit button next to one of the books
-  + Make some edit to form
+  + Visit <http://p4.seanlimsph.me/books/{book_id}>; click *Edit this book* in the header
+  + Make some edits to the given form
   + Click *Save changes*
-  + Observe confirmation message
   
 __Delete__
-  + Visit <http://p4.foobooks.me/books>; choose the Delete button next to one of the books
+  + Visit <http://p4.foobooks.me/books/{book_id}>; click *Delete this book* in the header
   + Confirm deletion
-  + Observe confirmation message
 
 ## Outside resources
 <https://stackoverflow.com/questions/44716379/laravel-5-4-24-throws-methodnotallowedhttpexception-during-logout-of-users>
+<https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css>
+<https://www.123rf.com/photo_7748642_two-scientists-surprised-at-their-experiment.html>
+<https://www.canstockphoto.com/science-experiment-3755022.html>
+
 
 ## Code style divergences
-*List any divergences from PSR-1/PSR-2 and course guidelines on code style*
+N/A
 
 ## Notes for instructor
 *Any notes for me to refer to while grading; if none, omit this section*

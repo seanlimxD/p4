@@ -21,7 +21,13 @@
         <link rel="icon" href="/images/favicon.ico" sizes="16x16" type="image/x-icon">
 
     </head>
-    <body ng-controller="searchController">
+
+    @if(session('alert'))
+        <div class='alert'>
+            {{ session('alert') }}
+        </div>
+    @endif
+    <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -65,6 +71,5 @@
         <main class="py-4">
             @yield('content')
         </main>
-        </div> <!-- /container -->
     </body>
 </html>

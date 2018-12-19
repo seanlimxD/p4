@@ -18,7 +18,7 @@ class ChapterController extends Controller
         $book = Book::find($id);
         $author = $book->author;  
         if(!\Auth::check() || $author['id'] != Auth::user()->id) {
-            return ('You do not have sufficient permissions to add chapters to this book.');
+            return redirect('/books/'.$id);
         }
         return view('books.create_chapter')->with([
             'book' => $book,
@@ -54,7 +54,7 @@ class ChapterController extends Controller
         $book = Book::find($book_id);
 
         if (!$book) {
-            return redirect('/books')->with('alert', 'Book not found');
+            return redirect('/books');
         }
         $chapter = Chapter::find($chapter_id);
     	if ($book_id == $chapter->book_id)
@@ -62,7 +62,7 @@ class ChapterController extends Controller
                 'book' => $book,
                 'chapter' => $chapter
             ]);
-    	return "Error in retrieving chapter chosen";
+    	return redirect('/books/'.$book_id);
     }
 
     public function edit(Request $request, $book_id, $chapter_id){
@@ -75,7 +75,7 @@ class ChapterController extends Controller
                 'book' => $book,
                 'chapter' => $chapter
             ]);
-        return "No rights to edit this chapter";
+        return redirect('/books/'.$book_id.'/chapters/'.$chapter_id);
     }
 
     public function update(Request $request, $book_id, $chapter_id){
@@ -120,7 +120,7 @@ class ChapterController extends Controller
                 'chapter' => $chapter
             ]);
         }
-        return "You do not have sufficient permissions to delete this chapter.";
+        return redirect('/books/'.$book_id);
     }
 
     public function destroy(Request $request, $book_id, $chapter_id){
@@ -136,6 +136,6 @@ class ChapterController extends Controller
             $book->save();
             return redirect('/books/'.$book_id);
         }
-        return redirect('/books/'.$book_id)->with('alert', 'You do not have sufficient permissions to delete this chapter.');
+        return redirect('/books/'.$book_id);
     }
 }

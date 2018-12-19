@@ -104,11 +104,12 @@ class BookController extends Controller
         $book = Book::find($id);
         $author = $book->author;
         if (Auth::check()){
-        	if ($author['id'] == Auth::user()->id) return view('books.edit')->with([
-                'book' => $book,
-            ]);	
+        	if ($author['id'] == Auth::user()->id) 
+                return view('books.edit')->with([
+                    'book' => $book,
+                ]);	
         }
-        return "You do not have sufficient permissions to edit this book.";
+        return redirect('/books/'.$id);
     }
 
     public function update(Request $request, $id){
@@ -146,7 +147,7 @@ class BookController extends Controller
         if ($author['id'] == Auth::user()->id){
             return view('books.delete')->with('book', $book);
         }
-        return "You do not have sufficient permissions to delete this book.";
+        return redirect('/books/'.$id);
     }
 
     public function destroy(Request $request, $id) {
@@ -156,7 +157,7 @@ class BookController extends Controller
             $book->delete();
             return redirect("/");
         }
-        return "You do not have sufficient permissions to delete this book.";
+        return redirect('/books/'.$id);
     }
 
     public function search(Request $request) {
@@ -193,14 +194,18 @@ class BookController extends Controller
     public function follow(Request $request, $id) {
         $user = Auth::user();
         $book = Book::find($id);
-        $user->follows()->attach($book);
+        if (!(in_array($user->id, $book->followers()->select('user_id')->pluck('user_id')->toArray()))) {
+            $user->follows()->attach($book);
+        }
         return redirect("/books/".$id);
     }
 
     public function unfollow(Request $request, $id) {
         $user = Auth::user();
         $book = Book::find($id);
-        $user->follows()->detach($book);
+        if (in_array($user->id, $book->followers()->select('user_id')->pluck('user_id')->toArray())) {
+            $user->follows()->detach($book);
+        }
         return redirect("/books/".$id);
     }
 
