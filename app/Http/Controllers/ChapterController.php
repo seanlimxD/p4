@@ -16,7 +16,7 @@ class ChapterController extends Controller
 
     public function create(Request $request, $id){
         $book = Book::find($id);
-        $author = $book->user;  
+        $author = $book->author;  
         if(!\Auth::check() || $author['id'] != Auth::user()->id) {
             return ('You do not have sufficient permissions to add chapters to this book.');
         }
@@ -68,7 +68,7 @@ class ChapterController extends Controller
     public function edit(Request $request, $book_id, $chapter_id){
         $book = Book::find($book_id);
         $chapter = Chapter::find($chapter_id);
-        $author = $book->user;
+        $author = $book->author;
 
         if ($author['id'] == Auth::user()->id || $chapter->book == $book) 
             return view('books.edit_chapter')->with([
@@ -113,7 +113,7 @@ class ChapterController extends Controller
             return redirect('/books/'.$book_id)->with('alert', 'Chapter not found');
         }
 
-        $author = $book->user;
+        $author = $book->author;
         if ($author['id'] == Auth::user()->id){
             return view('books.delete_chapter')->with([
                 'book' => $book,
@@ -126,7 +126,7 @@ class ChapterController extends Controller
     public function destroy(Request $request, $book_id, $chapter_id){
         $book = Book::find($book_id);
         $chapter = Chapter::find($chapter_id);
-        $author = $book->user;
+        $author = $book->author;
 
         if ($author['id'] == Auth::user()->id || $chapters->book == $book){
             $chapter->delete();

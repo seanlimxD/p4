@@ -102,7 +102,7 @@ class BookController extends Controller
 
     public function edit(Request $request, $id) {
         $book = Book::find($id);
-        $author = $book->user;
+        $author = $book->author;
         if (Auth::check()){
         	if ($author['id'] == Auth::user()->id) return view('books.edit')->with([
                 'book' => $book,
@@ -142,7 +142,7 @@ class BookController extends Controller
             return redirect('/books')->with('alert', 'Book not found');
         }
 
-        $author = $book->user;
+        $author = $book->author;
         if ($author['id'] == Auth::user()->id){
             return view('books.delete')->with('book', $book);
         }
@@ -151,7 +151,7 @@ class BookController extends Controller
 
     public function destroy(Request $request, $id) {
         $book = Book::find($id);
-        $author = $book->user;  
+        $author = $book->author;  
         if ($author['id'] == Auth::user()->id){
             $book->delete();
             return redirect("/");
@@ -193,7 +193,7 @@ class BookController extends Controller
     public function follow(Request $request, $id) {
         $user = Auth::user();
         $book = Book::find($id);
-        $user->follows()->sync($book);
+        $user->follows()->attach($book);
         return redirect("/books/".$id);
     }
 

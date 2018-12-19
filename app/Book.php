@@ -13,7 +13,7 @@ class Book extends Model
     public function author() {
         # Book belongs to Author
         # Define an inverse one-to-many relationship.
-        return $this->belongsTo('App\User', "id");
+        return $this->belongsTo('App\User', "user_id");
     }
 
     public function chapters() {
