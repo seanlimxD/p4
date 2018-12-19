@@ -44,7 +44,7 @@
                             <li><a href="/about">About <span class="sr-only">(current)</span></a></li>
                         @if(Auth::check())
                             <li><a href="/books/create">Create New Book<span class="sr-only">(current)</span></a></li>
-                            <li><a href='#' onClick='document.getElementById("logout").submit();'>Logout</a></li>
+                            <li><a href='/logout'>Logout</a></li>
                         @else
                             <li><a href="/login">Login<span class="sr-only">(current)</span></a></li>
                             <li><a href="/register">Register<span class="sr-only">(current)</span></a></li>

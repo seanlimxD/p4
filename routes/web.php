@@ -27,4 +27,6 @@ Route::get('books/{books}/delete', 'BookController@delete');
 Route::get('books/{books}/chapters/{chapters}/delete', 'ChapterController@delete');
 Route::get('/books-search', 'BookController@search');
 
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 Auth::routes();
