@@ -18,7 +18,7 @@
     <div class="row">
         <div class='col-md-12'>
             <p>{{$chapter->content}}</p>
-            @if (Auth::user() && Auth::user()->id == $book->user->id)
+            @if (Auth::user() && Auth::user()->id == $book->author->id)
                 <p>
                     <a class="btn btn-primary btn-lg" href="/book/{{$chapter->book_id}}/chapters/{{$chapter->id}}/edit" role="button"> Edit this chapter </a>
                 </p>
